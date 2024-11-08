@@ -1,0 +1,29 @@
+{
+  "name": "autobot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "nodemon ./src/index.ts",
+    "start:remote": "node ./build/index.js",
+    "build": "tsc ./src/index.ts --outDir ./build"
+  },
+  "keywords": [],
+  "author": "GillGate",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.6.0",
+    "@grammyjs/conversations": "^1.2.0",
+    "@grammyjs/hydrate": "^1.4.1",
+    "@types/node": "^22.9.0",
+    "dotenv": "^16.4.5",
+    "grammy": "^1.21.1",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2"
+  },
+  "imports": {
+    "#root/*": {
+      "default": "./src/*"
+    }
+  }
+}
