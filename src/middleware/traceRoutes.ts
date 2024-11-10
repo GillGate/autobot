@@ -13,7 +13,7 @@ export default async function (ctx: MyContext, next: NextFunction) {
         ctx.session.lastMsgId = currentMsgId!;
 
         if (ctx?.callbackQuery) {
-            let cbQMessage = await ctx.callbackQuery.message;
+            let cbQMessage = ctx.callbackQuery.message;
 
             ctx.session.routeHistory.push({
                 text: cbQMessage?.text,

@@ -1,4 +1,4 @@
-import autoConfig, { autoParams } from "#root/config/auto.config.ts";
+import autoConfig, { AutoParams, autoParams } from "#root/config/auto.config.ts";
 import { formatString, translate } from "#root/helpers/translate.ts";
 import { InlineKeyboard } from "grammy";
 
@@ -284,26 +284,24 @@ export function getGensByYearMenu(year) {
 
 // Параметры 
 
-export function getCarBodyMenu() {
-    let carBodyMenu = new InlineKeyboard();
+export function getAutoParamsMenu(param: keyof AutoParams, backwardsText: string) {
+    let paramsMenu = new InlineKeyboard();
 
-    for(let curCarBody of autoParams.carBody) {
-        carBodyMenu.text(translate(curCarBody), `request__carbody_${curCarBody}`).row()
+    for(let curParam of autoParams[param]) {
+        paramsMenu.text(translate(curParam), `request__${param}_${curParam}`).row()
     }
 
-    carBodyMenu.text("‹ Изменить поколение", "back");
+    paramsMenu.text(backwardsText, "back");
 
-    return carBodyMenu;
+    return paramsMenu;
 }
 
-export function getTransMenu() {
-    let transMenu = new InlineKeyboard();
+export function getFirstStageEndMenu() {
+    let optionsMenu = new InlineKeyboard();
 
-    for(let curTrans of autoParams.transmission) {
-        transMenu.text(translate(curTrans), `request__trans_${curTrans}`).row()
-    }
+    optionsMenu.text("Всё верно, идём дальше", "request__second_stage").row()
+    // в теории сюда можно добавить кнопки с возвращением на каждый этап, передав весь request
+    optionsMenu.text("‹ Назад", "back");
 
-    transMenu.text("‹ Изменить кузов", "back");
-
-    return transMenu;
+    return optionsMenu;
 }
