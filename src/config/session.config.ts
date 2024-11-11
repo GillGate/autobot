@@ -24,6 +24,7 @@ export interface Request  {
     model: string,
     year: string,
     gen: string,
+
     carbody: string
     trans: string
     engine: string
@@ -33,4 +34,11 @@ export interface Request  {
     salonmaterial: string
     saloncolor: string
     exchange: boolean
+
+    mileage: number,
+    reserve?: number,
+    vin: string,
+    modification: string,
+    price: number,
+    phone: string
 };

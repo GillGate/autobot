@@ -61,7 +61,7 @@ export const autoParams: AutoParams = {
         "combo-material",
     ],
     saloncolor: ["light", "combo-color", "dark"],
-    exchange: ["yes", "no"],
+    exchange: ["not-interested", "any-option", "with-pay-buyer", "with-pay-seller"],
 };
 
 export interface AutoParams {
