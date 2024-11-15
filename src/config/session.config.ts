@@ -1,7 +1,10 @@
-import { AutoParams } from "./auto.config";
+import { Request } from "./auto.config";
 
 export default {
-    request: {},
+    request: {
+        params: {},
+        gallery: []
+    },
     conversation: {},
     routeHistory: [],
     lastMsgId: 0,
@@ -17,28 +20,3 @@ export interface SessionData {
     temp: Record<any, any>,
     user: Record<any, any>,
 }
-
-export interface Request  {
-    region: string,
-    brand: string,
-    model: string,
-    year: string,
-    gen: string,
-
-    carbody: string
-    trans: string
-    engine: string
-    drive: string
-    condition: string
-    bodycolor: string
-    salonmaterial: string
-    saloncolor: string
-    exchange: boolean
-
-    mileage: number,
-    reserve?: number,
-    vin: string,
-    modification: string,
-    price: number,
-    phone: string
-};

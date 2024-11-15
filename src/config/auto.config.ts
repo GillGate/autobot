@@ -1,12 +1,23 @@
-import italy from "./auto/italy";
+import europe from "./auto/europe";
+import america from "./auto/america";
 
 export default {
-    ...italy,
-} as AutoConfig;
+    // ...italy,
+    ...america,
+    ...europe,
+    // america: {
+        
+    // },
+    // europe: {
+        
+    // },
+    // china: {
 
-type AutoYearConfig = Record<number, string[]>;
-type AutoModelConfig = Record<string, AutoYearConfig>;
-export type AutoConfig = Record<string, AutoModelConfig>;
+    // },
+    // asia: {
+
+    // }
+};
 
 export const autoParams: AutoParams = {
     carbody: [
@@ -64,18 +75,10 @@ export const autoParams: AutoParams = {
     exchange: ["not-interested", "any-option", "with-pay-buyer", "with-pay-seller"],
 };
 
-export interface AutoParams {
-    gen?: string;
-    carbody: string[];
-    trans: string[];
-    engine: string[];
-    drive: string[];
-    condition: string[];
-    bodycolor: string[];
-    salonmaterial: string[];
-    saloncolor: string[];
-    exchange: string[];
-}
+export type AutoParams = {
+    [K in keyof RequestParams]: string[];
+    // [K in keyof AutoParams]: AutoParams[K] extends any[] ? AutoParams[K] : AutoParams[K][]; // если вдруг появится другой тип
+};
 
 export const autoParamsSteps: AutoParamsStep[] = [
     {
@@ -135,8 +138,47 @@ export const autoParamsSteps: AutoParamsStep[] = [
 ];
 
 export interface AutoParamsStep {
-    step: keyof AutoParams;
+    step: keyof AutoParams | "gen";
     backwardsText: string;
     nextStep: keyof AutoParams;
     nextStepText: string;
 }
+
+interface BaseRequest  {
+    region: string,
+    brand: string,
+    model: string,
+    year: string,
+    gen: string,
+    params: RequestParams
+    mileage: number,
+    vin: string,
+    modification: string,
+    price: number,
+    phone: string,
+    gallery: any[]
+};
+
+export interface RequestParams {
+    carbody: string
+    trans: string
+    engine: string
+    drive: string
+    condition: string
+    bodycolor: string
+    salonmaterial: string
+    saloncolor: string
+    exchange: string
+}
+
+interface ElectroRequest extends BaseRequest {
+    reserve: number,
+    capacity: never,
+}
+
+interface FuelRequest extends BaseRequest {
+    capacity: null | number,
+    reserve: never,
+}
+
+export type Request = ElectroRequest | FuelRequest;

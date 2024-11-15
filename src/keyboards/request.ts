@@ -1,5 +1,6 @@
-import autoConfig, { AutoParams, autoParams } from "#root/config/auto.config.ts";
-import { formatString, translate } from "#root/helpers/translate.ts";
+import autoConfig, { autoParams, RequestParams } from "#root/config/auto.config.ts";
+import { getEmoji } from "#root/utils/getEmoji.ts";
+import { formatString, translate } from "#root/utils/translate.ts";
 import { InlineKeyboard } from "grammy";
 
 export function getBrandRegionMenu() {
@@ -17,238 +18,242 @@ export function getBrandRegionMenu() {
 export function getBrandMenu(region: string) {
     let brandMenu = new InlineKeyboard();
 
+    // for(let brand of Object.keys(autoConfig[region])) {
+    //     console.log(brand);
+    //     brandMenu.text(`🇺🇸 ${brand}`, `request__brand_${brand}`);
+    // }
+
     switch (region) {
         case "america":
             brandMenu
-                .text("🇺🇸 Buick", "request__brand_buick")
-                .text("🇺🇸 Cadillac", "request__brand_cadillac")
-                .text("🇺🇸 Chevrolet", "request__brand_chevrolet")
+                .text("🇺🇸 Buick", "request__brand_Buick")
+                .text("🇺🇸 Cadillac", "request__brand_Cadillac")
+                .text("🇺🇸 Chevrolet", "request__brand_Chevrolet")
                 .row()
-                .text("🇺🇸 Chrysler", "request__brand_chrysler")
-                .text("🇺🇸 Dodge", "request__brand_dodge")
-                .text("🇺🇸 Ford", "request__brand_ford")
+                .text("🇺🇸 Chrysler", "request__brand_Chrysler")
+                .text("🇺🇸 Dodge", "request__brand_Dodge")
+                .text("🇺🇸 Ford", "request__brand_Ford")
                 .row()
-                .text("🇺🇸 GMC", "request__brand_gmc")
-                .text("🇺🇸 Hummer", "request__brand_hummer")
-                .text("🇺🇸 Jeep", "request__brand_jeep")
+                .text("🇺🇸 GMC", "request__brand_GMC")
+                .text("🇺🇸 Hummer", "request__brand_Hummer")
+                .text("🇺🇸 Jeep", "request__brand_Jeep")
                 .row()
-                .text("🇺🇸 Lincoln", "request__brand_lincoln")
-                .text("🇺🇸 Mercury", "request__brand_mercury")
-                .text("🇺🇸 Oldsmobile", "request__brand_oldsmobile")
+                .text("🇺🇸 Lincoln", "request__brand_Lincoln")
+                .text("🇺🇸 Mercury", "request__brand_Mercury")
+                .text("🇺🇸 Oldsmobile", "request__brand_Oldsmobile")
                 .row()
-                .text("🇺🇸 Plymouth", "request__brand_plymouth")
-                .text("🇺🇸 Pontiac", "request__brand_pontiac")
-                .text("🇺🇸 RAM", "request__brand_ram")
+                .text("🇺🇸 Plymouth", "request__brand_Plymouth")
+                .text("🇺🇸 Pontiac", "request__brand_Pontiac")
+                .text("🇺🇸 RAM", "request__brand_Ram")
                 .row()
-                .text("🇺🇸 Rivian", "request__brand_rivian")
-                .text("🇺🇸 Saturn", "request__brand_saturn")
-                .text("🇺🇸 Tesla", "request__brand_tesla");
-
+                .text("🇺🇸 Rivian", "request__brand_Rivian")
+                .text("🇺🇸 Saturn", "request__brand_Saturn")
+                .text("🇺🇸 Tesla", "request__brand_Tesla");
             break;
         case "europe":
             brandMenu
-                .text("🇩🇪 Alpina", "request__brand_alpina")
-                .text("🇩🇪 Audi", "request__brand_audi")
-                .text("🇩🇪 BMW", "request__brand_bmw")
+                .text("🇩🇪 Alpina", "request__brand_Alpina")
+                .text("🇩🇪 Audi", "request__brand_Audi")
+                .text("🇩🇪 BMW", "request__brand_BMW")
                 .row()
-                .text("🇩🇪 Mercedes-Benz", "request__brand_mercedez_benz")
-                .text("🇩🇪 Opel", "request__brand_opel")
+                .text("🇩🇪 Mercedes-Benz", "request__brand_Mercedes-Benz")
+                .text("🇩🇪 Opel", "request__brand_Opel")
                 .row()
-                .text("🇩🇪 Porsche", "request__brand_porsche")
-                .text("🇩🇪 Smart", "request__brand_smart")
+                .text("🇩🇪 Porsche", "request__brand_Porsche")
+                .text("🇩🇪 Smart", "request__brand_Smart")
                 .row()
-                .text("🇩🇪 Trabant", "request__brand_trabant")
-                .text("🇩🇪 Volkswagen", "request__brand_volkswagen")
-                .text("🇩🇪 Wartburg", "request__brand_wartburg")
+                .text("🇩🇪 Trabant", "request__brand_Trabant")
+                .text("🇩🇪 Volkswagen", "request__brand_Volkswagen")
+                .text("🇩🇪 Wartburg", "request__brand_Wartburg")
                 .row();
 
             brandMenu
-                .text("🇫🇷 Citroen", "request__brand_citroen")
-                .text("🇫🇷 DS", "request__brand_ds")
+                .text("🇫🇷 Citroen", "request__brand_Citroen")
+                .text("🇫🇷 DS", "request__brand_DS")
                 .row()
-                .text("🇫🇷 Peugeot", "request__brand_peugeot")
-                .text("🇫🇷 Renault", "request__brand_renault")
+                .text("🇫🇷 Peugeot", "request__brand_Peugeot")
+                .text("🇫🇷 Renault", "request__brand_Renault")
                 .row();
 
-            brandMenu.text("🇸🇪 Saab", "request__brand_saab").text("🇸🇪 Volvo", "request__brand_volvo");
+            brandMenu.text("🇸🇪 Saab", "request__brand_Saab").text("🇸🇪 Volvo", "request__brand_Volvo");
 
-            brandMenu.text("🇳🇴 Think", "request__brand_think").row();
-
-            brandMenu
-                .text("🇷🇺 Ambertruck", "request__brand_ambertruck")
-                .text("🇷🇺 Lada (ВАЗ)", "request__brand_lada_vaz")
-                .text("🇷🇺 Vortex", "request__brand_vortex")
-                .row()
-                .text("🇷🇺 ГАЗ", "request__brand_gaz")
-                .text("🇷🇺 ИЖ", "request__brand_izh")
-                .row()
-                .text("🇷🇺 Москвич", "request__brand_moskvich")
-                .text("🇷🇺 ТагАЗ", "request__brand_tagaz")
-                .text("🇷🇺 УАЗ", "request__brand_uaz")
-                .row();
+            brandMenu.text("🇳🇴 Think", "request__brand_Think").row();
 
             brandMenu
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Aston Martin", "request__brand_aston_martin")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Bentley", "request__brand_bentley")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Jaguar", "request__brand_jaguar")
+                .text("🇷🇺 Ambertruck", "request__brand_Ambertruck")
+                .text("🇷🇺 Lada (ВАЗ)", "request__brand_Lada (ВАЗ)")
+                .text("🇷🇺 Vortex", "request__brand_Vortex")
                 .row()
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Land Rover", "request__brand_land_rover")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Lotus", "request__brand_lotus")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 MG", "request__brand_mg")
+                .text("🇷🇺 ГАЗ", "request__brand_ГАЗ")
+                .text("🇷🇺 ИЖ", "request__brand_ИЖ")
                 .row()
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 MINI", "request__brand_mini")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Rolls-Royce", "request__brand_rolls_royce")
-                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Rover", "request__brand_rover")
+                .text("🇷🇺 Москвич", "request__brand_Москвич")
+                .text("🇷🇺 ТагАЗ", "request__brand_ТагАЗ")
+                .text("🇷🇺 УАЗ", "request__brand_УАЗ")
                 .row();
 
             brandMenu
-                .text("🇮🇹 Abarth", "request__brand_abarth")
-                .text("🇮🇹 Alfa Romeo", "request__brand_alfa_romeo")
-                .text("🇮🇹 Ferrari", "request__brand_ferrari")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Aston Martin", "request__brand_Aston Martin")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Bentley", "request__brand_Bentley")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Jaguar", "request__brand_Jaguar")
                 .row()
-                .text("🇮🇹 Fiat", "request__brand_fiat")
-                .text("🇮🇹 Lancia", "request__brand_lancia")
-                .text("🇮🇹 Maserati", "request__brand_maserati")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Land Rover", "request__brand_Land Rover")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Lotus", "request__brand_Lotus")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 MG", "request__brand_MG")
+                .row()
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 MINI", "request__brand_MINI")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Rolls-Royce", "request__brand_Rolls-Royce")
+                .text("🏴󠁧󠁢󠁥󠁮󠁧󠁿 Rover", "request__brand_Rover")
                 .row();
 
             brandMenu
-                .text("🇪🇸 Cupra", "request__brand_cupra")
-                .text("🇪🇸 Santana", "request__brand_santana")
-                .text("🇪🇸 SEAT", "request__brand_seat")
+                .text("🇮🇹 Abarth", "request__brand_Abarth")
+                .text("🇮🇹 Alfa Romeo", "request__brand_Alfa Romeo")
+                .text("🇮🇹 Ferrari", "request__brand_Ferrari")
+                .row()
+                .text("🇮🇹 Fiat", "request__brand_Fiat")
+                .text("🇮🇹 Lancia", "request__brand_Lancia")
+                .text("🇮🇹 Maserati", "request__brand_Maserati")
                 .row();
 
-            brandMenu.text("🇨🇿 Skoda", "request__brand_skoda");
+            brandMenu
+                .text("🇪🇸 Cupra", "request__brand_Cupra")
+                .text("🇪🇸 Santana", "request__brand_Santana")
+                .text("🇪🇸 SEAT", "request__brand_Seat")
+                .row();
 
-            brandMenu.text("🇷🇴 Dacia", "request__brand_dacia");
+            brandMenu.text("🇨🇿 Skoda", "request__brand_Skoda");
 
-            brandMenu.text("🇧🇾 Belgee", "request__brand_belgee").row();
+            brandMenu.text("🇷🇴 Dacia", "request__brand_Dcia");
+
+            brandMenu.text("🇧🇾 Belgee", "request__brand_Belgee").row();
 
             brandMenu
-                .text("🇮🇷 Iran Khodro", "request__brand_iran_khodro")
-                .text("🇮🇷 Saipa", "request__brand_saipa");
+                .text("🇮🇷 Iran Khodro", "request__brand_Iran Khodro")
+                .text("🇮🇷 Saipa", "request__brand_Saipa");
 
             break;
         case "china":
             brandMenu
-                .text("Aito", "request__brand_aito")
-                .text("Avatr", "request__brand_avatr")
-                .text("BAIC", "request__brand_baic")
+                .text("Aito", "request__brand_Aito")
+                .text("Avatr", "request__brand_Avatr")
+                .text("BAIC", "request__brand_BAIC")
                 .row()
-                .text("BAW", "request__brand_baw")
-                .text("Brilliance", "request__brand_brilliance")
-                .text("BYD", "request__brand_byd")
+                .text("BAW", "request__brand_BAW")
+                .text("Brilliance", "request__brand_Brilliance")
+                .text("BYD", "request__brand_BYD")
                 .row()
-                .text("Changan", "request__brand_changan")
-                .text("Chery", "request__brand_chery")
-                .text("Denza", "request__brand_denza")
+                .text("Changan", "request__brand_Changan")
+                .text("Chery", "request__brand_Chery")
+                .text("Denza", "request__brand_Denza")
                 .row()
-                .text("Dongfeng", "request__brand_dongfeng")
-                .text("Dongfeng Honda", "request__brand_dongfeng_honda")
-                .text("EXEED", "request__brand_exeed")
+                .text("Dongfeng", "request__brand_Dongfeng")
+                .text("Dongfeng Honda", "request__brand_Dongfeng Honda")
+                .text("EXEED", "request__brand_EXEED")
                 .row()
-                .text("FangChengBao", "request__brand_fangchengbao")
-                .text("FAW", "request__brand_faw")
-                .text("GAC", "request__brand_gac")
+                .text("FangChengBao", "request__brand_FangChengBao")
+                .text("FAW", "request__brand_FAW")
+                .text("GAC", "request__brand_GAC")
                 .row()
-                .text("Geely", "request__brand_geely")
-                .text("Great Wall", "request__brand_great_wall")
-                .text("Hafei", "request__brand_hafei")
+                .text("Geely", "request__brand_Geely")
+                .text("Great Wall", "request__brand_Great Wall")
+                .text("Hafei", "request__brand_Hafei")
                 .row()
-                .text("Haima", "request__brand_haima")
-                .text("Haval", "request__brand_haval")
-                .text("Hongqi", "request__brand_hongqi")
+                .text("Haima", "request__brand_Haima")
+                .text("Haval", "request__brand_Haval")
+                .text("Hongqi", "request__brand_Hongqi")
                 .row()
-                .text("Hongxing", "request__brand_hongxing")
-                .text("Hozon", "request__brand_hozon")
-                .text("JAC", "request__brand_jac")
+                .text("Hongxing", "request__brand_Hongxing")
+                .text("Hozon", "request__brand_Hozon")
+                .text("JAC", "request__brand_JAC")
                 .row()
-                .text("Jetour", "request__brand_jetour")
-                .text("Jetta", "request__brand_jetta")
-                .text("Jiangling", "request__brand_jiangling")
+                .text("Jetour", "request__brand_Jetour")
+                .text("Jetta", "request__brand_Jetta")
+                .text("Jiangling", "request__brand_Jiangling")
                 .row()
-                .text("Jiyue", "request__brand_jiyue")
-                .text("Jmev", "request__brand_jmev")
-                .text("Kaiyi", "request__brand_kaiyi")
+                .text("Jiyue", "request__brand_Jiyue")
+                .text("Jmev", "request__brand_Jmev")
+                .text("Kaiyi", "request__brand_Kaiyi")
                 .row()
-                .text("Leapmotor", "request__brand_leapmotor")
-                .text("Lifan", "request__brand_lifan")
-                .text("Livan", "request__brand_livan")
+                .text("Leapmotor", "request__brand_Leapmotor")
+                .text("Lifan", "request__brand_Lifan")
+                .text("Livan", "request__brand_Livan")
                 .row()
-                .text("LiXiang", "request__brand_lixiang")
-                .text("Lynk & Co", "request__brand_lynk_and_co")
-                .text("M-Hero", "request__brand_m_hero")
+                .text("LiXiang", "request__brand_LiXiang")
+                .text("Lynk & Co", "request__brand_Lynk & Co")
+                .text("M-Hero", "request__brand_M-Hero")
                 .row()
-                .text("Maple", "request__brand_maple")
-                .text("Nio", "request__brand_nio")
-                .text("Omoda", "request__brand_omoda")
+                .text("Maple", "request__brand_Maple")
+                .text("Nio", "request__brand_Nio")
+                .text("Omoda", "request__brand_Omoda")
                 .row()
-                .text("Ora", "request__brand_ora")
-                .text("Polar", "request__brand_polar")
-                .text("Polestar", "request__brand_polestar")
+                .text("Ora", "request__brand_Ora")
+                .text("Polar", "request__brand_Polar")
+                .text("Polestar", "request__brand_Polestar")
                 .row()
-                .text("Roewe", "request__brand_roewe")
-                .text("SERES", "request__brand_seres")
-                .text("Shenlan", "request__brand_shenlan")
+                .text("Roewe", "request__brand_Roewe")
+                .text("SERES", "request__brand_SERES")
+                .text("Shenlan", "request__brand_Shenlan")
                 .row()
-                .text("Shineray", "request__brand_shineray")
-                .text("Skywell", "request__brand_skywell")
-                .text("Skyworth", "request__brand_skyworth")
+                .text("Shineray", "request__brand_Shineray")
+                .text("Skywell", "request__brand_Skywell")
+                .text("Skyworth", "request__brand_Skyworth")
                 .row()
-                .text("Tank", "request__brand_tank")
-                .text("VGV", "request__brand_vgv")
-                .text("Voyah", "request__brand_voyah")
+                .text("Tank", "request__brand_Tank")
+                .text("VGV", "request__brand_VGV")
+                .text("Voyah", "request__brand_Voyah")
                 .row()
-                .text("Weltmeister", "request__brand_weltmeister")
-                .text("Wey", "request__brand_wey")
-                .text("Wuling", "request__brand_wuling")
+                .text("Weltmeister", "request__brand_Weltmeister")
+                .text("Wey", "request__brand_Wey")
+                .text("Wuling", "request__brand_Wuling")
                 .row()
-                .text("Xiaomi", "request__brand_xiaomi")
-                .text("Xpeng", "request__brand_xpeng")
-                .text("Young", "request__brand_young")
+                .text("Xiaomi", "request__brand_Xiaomi")
+                .text("Xpeng", "request__brand_Xpeng")
+                .text("Young", "request__brand_Young")
                 .row()
-                .text("Zeekr", "request__brand_zeekr")
-                .text("Zotye", "request__brand_zotye")
-                .text("ZX", "request__brand_zx");
+                .text("Zeekr", "request__brand_Zeekr")
+                .text("Zotye", "request__brand_Zotye")
+                .text("ZX", "request__brand_ZX");
 
             break;
         case "asia":
             brandMenu
-                .text("🇰🇷 Daewoo", "request__brand_daewoo")
-                .text("🇰🇷 Genesis", "request__brand_genesis")
+                .text("🇰🇷 Daewoo", "request__brand_Daewoo")
+                .text("🇰🇷 Genesis", "request__brand_Genesis")
                 .row()
-                .text("🇰🇷 Hyundai", "request__brand_hyundai")
-                .text("🇰🇷 Kia", "request__brand_kia")
+                .text("🇰🇷 Hyundai", "request__brand_Hyundai")
+                .text("🇰🇷 Kia", "request__brand_Kia")
                 .row()
-                .text("🇰🇷 Renault Samsung", "request__brand_renault_samsung")
-                .text("🇰🇷 SsangYong", "request__brand_ssangyong")
+                .text("🇰🇷 Renault Samsung", "request__brand_Renault Samsung")
+                .text("🇰🇷 SsangYong", "request__brand_SsangYong")
                 .row();
 
             brandMenu
-                .text("🇯🇵 Acura", "request__brand_acura")
-                .text("🇯🇵 Daihatsu", "request__brand_daihatsu")
-                .text("🇯🇵 Datsun", "request__brand_datsun")
+                .text("🇯🇵 Acura", "request__brand_Acura")
+                .text("🇯🇵 Daihatsu", "request__brand_Daihatsu")
+                .text("🇯🇵 Datsun", "request__brand_Datsun")
                 .row()
-                .text("🇯🇵 Honda", "request__brand_honda")
-                .text("🇯🇵 Infiniti", "request__brand_infiniti")
-                .text("🇯🇵 Isuzu", "request__brand_isuzu")
+                .text("🇯🇵 Honda", "request__brand_Honda")
+                .text("🇯🇵 Infiniti", "request__brand_Infiniti")
+                .text("🇯🇵 Isuzu", "request__brand_Isuzu")
                 .row()
-                .text("🇯🇵 Lexus", "request__brand_lexus")
-                .text("🇯🇵 Mazda", "request__brand_mazda")
+                .text("🇯🇵 Lexus", "request__brand_Lexus")
+                .text("🇯🇵 Mazda", "request__brand_Mazda")
                 .row()
-                .text("🇯🇵 Mitsubishi", "request__brand_mitsubishi")
-                .text("🇯🇵 Nissan", "request__brand_nissan")
-                .text("🇯🇵 Scion", "request__brand_scion")
+                .text("🇯🇵 Mitsubishi", "request__brand_Mitsubishi")
+                .text("🇯🇵 Nissan", "request__brand_Nissan")
+                .text("🇯🇵 Scion", "request__brand_Scion")
                 .row()
-                .text("🇯🇵 Subaru", "request__brand_subaru")
-                .text("🇯🇵 Suzuki", "request__brand_suzuki")
-                .text("🇯🇵 Toyota", "request__brand_toyota")
+                .text("🇯🇵 Subaru", "request__brand_Subaru")
+                .text("🇯🇵 Suzuki", "request__brand_Suzuki")
+                .text("🇯🇵 Toyota", "request__brand_Toyota")
                 .row();
 
-            brandMenu.text("🇺🇿 Ravon", "request__brand_ravon");
+            brandMenu.text("🇺🇿 Ravon", "request__brand_Ravon");
 
-            brandMenu.text("🇲🇾 Proton", "request__brand_proton");
+            brandMenu.text("🇲🇾 Proton", "request__brand_Proton");
 
-            brandMenu.text("🇮🇳 Tata", "request__brand_tata");
+            brandMenu.text("🇮🇳 Tata", "request__brand_Tata");
             break;
     }
 
@@ -260,8 +265,8 @@ export function getBrandMenu(region: string) {
 export function getModelMenu(brand) {
     let modelMenu = new InlineKeyboard();
 
-    for (let curModel of Object.keys(autoConfig["abarth"])) {
-        modelMenu.text(curModel, `request__model_${formatString(curModel)}`).row();
+    for (let curModel of Object.keys(autoConfig["Abarth"])) {
+        modelMenu.text(curModel, `request__model_${curModel}`).row();
     }
 
     modelMenu.text("‹ Изменить марку", "back");
@@ -272,7 +277,7 @@ export function getModelMenu(brand) {
 export function getYearsByModelMenu(model) {
     let yearsMenu = new InlineKeyboard();
 
-    for (let curYear of Object.keys(autoConfig["abarth"]["124 Spider"])) {
+    for (let curYear of Object.keys(autoConfig["Abarth"]["124 Spider"])) {
         yearsMenu.text(curYear, `request__year_${curYear}`).row();
     }
 
@@ -285,7 +290,7 @@ export function getGensByYearMenu(year) {
     let gensMenu = new InlineKeyboard();
 
     let genIndex = 0;
-    for (let curGen of Object.values(autoConfig["abarth"]["500"][2015])) {
+    for (let curGen of Object.values(autoConfig["Abarth"]["500"][2015])) {
         gensMenu.text(curGen, `request__gen_${genIndex}`).row();
         genIndex++;
     }
@@ -297,12 +302,12 @@ export function getGensByYearMenu(year) {
 
 // Параметры
 
-export function getAutoParamsMenu(param: keyof AutoParams, backwardsText: string) {
+export function getAutoParamsMenu(param: keyof RequestParams, backwardsText: string) {
     let paramsMenu = new InlineKeyboard();
 
     let paramIndex = 1;
     for (let curParam of autoParams[param]) {
-        paramsMenu.text(translate(curParam), `request__${param}_${curParam}`);
+        paramsMenu.text(`${getEmoji(curParam)} ${translate(curParam)}`, `request__${param}_${curParam}`);
 
         if (
             param === "drive" ||

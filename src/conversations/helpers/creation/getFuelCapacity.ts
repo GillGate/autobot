@@ -4,13 +4,19 @@ import { MyContext } from "#root/index.ts";
 import { ConversationFn } from "@grammyjs/conversations";
 import regexConfig from "#root/config/regex.config.ts";
 
-export const getPowerReserve:ConversationFn<MyContext> = async (conversation, ctx) => {
+export const getFuelCapacity:ConversationFn<MyContext> = async (conversation, ctx) => {
     return await conversation.waitUntil(
         async (ctx) => {
-            let reserveText = ctx.message?.text;
+            if (ctx.callbackQuery?.data === "conversation__skip") {
+                ctx.answerCallbackQuery();
+                conversation.session.request.capacity = null;
+                return true;
+            }
 
-            if(regexConfig.powerReserve.test(reserveText)) {
-                ctx.session.request.reserve = parseInt(reserveText);
+            let capacityText = ctx.message?.text;
+
+            if(regexConfig.fuelCapacity.test(capacityText)) {
+                conversation.session.request.capacity = parseInt(capacityText);
                 return true;
             }
 
@@ -19,7 +25,7 @@ export const getPowerReserve:ConversationFn<MyContext> = async (conversation, ct
         {
             otherwise: (ctx) =>
                 unlessActions(ctx, () => {
-                    ctx.reply("Укажите корректный запас хода (км):", {
+                    ctx.reply("Укажите корректный объем топливного бака (см³):", {
                         reply_markup: backMainMenu,
                         parse_mode: "HTML",
                     });

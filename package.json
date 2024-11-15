@@ -12,6 +12,8 @@
   "author": "GillGate",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.691.0",
+    "@aws-sdk/util-dynamodb": "^3.691.0",
     "@google-cloud/firestore": "^7.6.0",
     "@grammyjs/conversations": "^1.2.0",
     "@grammyjs/hydrate": "^1.4.1",
@@ -19,7 +21,8 @@
     "dotenv": "^16.4.5",
     "grammy": "^1.21.1",
     "nodemon": "^3.1.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "ydb-sdk": "^5.8.0"
   },
   "imports": {
     "#root/*": {

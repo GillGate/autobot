@@ -13,7 +13,7 @@ export const getModification:ConversationFn<MyContext> = async (conversation, ct
 
             if (ctx.callbackQuery?.data === "conversation__skip") {
                 ctx.answerCallbackQuery();
-                ctx.session.request.modification = "Не указано";
+                conversation.session.request.modification = "Не указано";
                 return true;
             }
 

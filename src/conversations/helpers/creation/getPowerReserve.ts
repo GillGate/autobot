@@ -4,14 +4,13 @@ import { MyContext } from "#root/index.ts";
 import { ConversationFn } from "@grammyjs/conversations";
 import regexConfig from "#root/config/regex.config.ts";
 
-export const getMileage:ConversationFn<MyContext> = async (conversation, ctx) => {
+export const getPowerReserve:ConversationFn<MyContext> = async (conversation, ctx) => {
     return await conversation.waitUntil(
         async (ctx) => {
-            let mileageText = ctx.message?.text;
+            let reserveText = ctx.message?.text;
 
-            if(regexConfig.mileage.test(mileageText)) {
-                let mileage = parseInt(mileageText);
-                ctx.session.request.mileage = mileage;
+            if(regexConfig.powerReserve.test(reserveText)) {
+                conversation.session.request.reserve = parseInt(reserveText);
                 return true;
             }
 
@@ -20,7 +19,7 @@ export const getMileage:ConversationFn<MyContext> = async (conversation, ctx) =>
         {
             otherwise: (ctx) =>
                 unlessActions(ctx, () => {
-                    ctx.reply("Укажите корректный пробег (км):", {
+                    ctx.reply("Укажите корректный запас хода (км):", {
                         reply_markup: backMainMenu,
                         parse_mode: "HTML",
                     });

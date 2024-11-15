@@ -10,7 +10,7 @@ export const getPhone:ConversationFn<MyContext> = async (conversation, ctx) => {
                let phoneText = ctx.message?.text;
 
                if(regexConfig.phone.test(phoneText)) {
-                    ctx.session.request.phone = phoneText;
+                    conversation.session.request.phone = phoneText;
 
                     return true;
                }

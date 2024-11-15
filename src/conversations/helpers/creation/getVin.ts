@@ -11,7 +11,7 @@ export const getVin:ConversationFn<MyContext> = async (conversation, ctx) => {
             vinText = vinText.toUpperCase();
 
             if(regexConfig.vin.test(vinText)) {
-                ctx.session.request.vin = vinText;
+                conversation.session.request.vin = vinText;
                 return true;
             }
 

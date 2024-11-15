@@ -3,16 +3,15 @@ import { backMainMenu } from "#root/keyboards/general.ts";
 import { MyContext } from "#root/index.ts";
 import { ConversationFn } from "@grammyjs/conversations";
 import regexConfig from "#root/config/regex.config.ts";
-import limitsConfig from "#root/config/limits.config.ts";
 
-export const getPrice:ConversationFn<MyContext> = async (conversation, ctx) => {
+export const getMileage:ConversationFn<MyContext> = async (conversation, ctx) => {
     return await conversation.waitUntil(
         async (ctx) => {
-            const { price: priceLimits } = limitsConfig;
-            let priceText = ctx.message?.text;
+            let mileageText = ctx.message?.text;
 
-            if(regexConfig.price.test(priceText) && +priceText > priceLimits.min) {
-                ctx.session.request.price = parseInt(priceText);
+            if(regexConfig.mileage.test(mileageText)) {
+                let mileage = parseInt(mileageText);
+                conversation.session.request.mileage = mileage;
                 return true;
             }
 
@@ -21,7 +20,7 @@ export const getPrice:ConversationFn<MyContext> = async (conversation, ctx) => {
         {
             otherwise: (ctx) =>
                 unlessActions(ctx, () => {
-                    ctx.reply("Укажите корректную цену в долларах:", {
+                    ctx.reply("Укажите корректный пробег (км):", {
                         reply_markup: backMainMenu,
                         parse_mode: "HTML",
                     });

@@ -7,6 +7,7 @@ export function getMainMenu() {
         .webApp("📱 Открыть веб-приложение", "https://av.by")
         .row()
         .text("🚘 Разместить объявление", "request__create")
+        // .text("🚘 Разместить объявление", "request__second_stage")
 
     return mainMenu;
 }
@@ -14,7 +15,7 @@ export function getMainMenu() {
 export function conversationOptionsMenu() {
     let optionsMenu = new InlineKeyboard();
 
-    optionsMenu.text("Пропустить ›", "conversation__skip").row()
+    optionsMenu.text("Продолжить ›", "conversation__skip").row()
     optionsMenu.text("‹ В главное меню", "main_menu");
 
     return optionsMenu;

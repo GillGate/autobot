@@ -6,6 +6,10 @@ export default async function (ctx: MyContext, next: NextFunction) {
     let currentMsgId = ctx?.update?.message?.message_id ?? ctx?.callbackQuery?.message?.message_id;
     let lastMsgId = ctx.session.lastMsgId ?? 0;
 
+    if(ctx?.callbackQuery?.data === "conversation__skip") {
+        return await next();
+    }
+
     if (currentMsgId! < lastMsgId || lastMsgId === 0) {
         return await sendStartMessage(ctx, true);
     }
